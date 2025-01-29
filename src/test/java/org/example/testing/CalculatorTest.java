@@ -1,14 +1,21 @@
 package org.example.testing;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
+    Calculator calculator;
+    @BeforeAll
+    static void setUp() {
+        Calculator calculator = new Calculator();
+    }
 
     @Test
     void testDivision() {
-        Calculator calculator = new Calculator();
         int res =  calculator.division(4,2);
 //        assertions are what we use to verify, if the method under test that we are testing works well
 //        returns correct result.
@@ -21,20 +28,25 @@ class CalculatorTest {
 
     }
 
-    @Test
-    void testIntegerSubtraction(){
-        Calculator calculator = new Calculator();
+//    @Test
+//    void testIntegerSubtraction(){
+//        int minuend = 35;
+//        int subtrahend = 10;
+//        int expectedResult = 25;
+//
+//        int actualRes = calculator.integerSubtraction(minuend,subtrahend);
+//        // since this will be everytime we called, it can slow down the application
+//        // to fix this we are going to use lambda function.
+//        assertEquals(expectedResult, actualRes,
+//                ()->minuend + "-" + subtrahend + "did not produce "+expectedResult);
+//        // if the test is passing, this lambda function will never get executed and
+//        // no resources will be spent to compute this error message.
+//    }
 
-        int minuend = 35;
-        int subtrahend = 10;
-        int expectedResult = 25;
+    //Parameterised Tests
+    @ParameterizedTest
+    @MethodSource("integerSubtractionInputParameters")
+    void testIntegerSubtraction(int a, int b, int expected) {
 
-        int actualRes = calculator.integerSubtraction(minuend,subtrahend);
-        // since this will be everytime we called, it can slow down the application
-        // to fix this we are going to use lambda function.
-        assertEquals(expectedResult, actualRes,
-                ()->minuend + "-" + subtrahend + "did not produce "+expectedResult);
-        // if the test is passing, this lambda function will never get executed and
-        // no resources will be spent to compute this error message.
     }
 }
